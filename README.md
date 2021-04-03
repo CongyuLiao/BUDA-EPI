@@ -27,11 +27,11 @@ The data size is ~ 20 GB, and the scan protocol is similar to the protocol of hu
     Two shells: b= 1000 with 32 diffusion directions and b=2500 with 64 diffusion directions
 ```
 **Tested with:**
-
+```
     MATLAB 2015b
     BART 0.5.00 (https://zenodo.org/record/3376744)
     FSL 6.0.4 (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation)
-
+```
 **Requirements:**
 This repository requires BART and FSL to be installed. More details can be found in "instructions.pdf" in the folder
 If possible, please include the following citations if you find our reconstruction useful:	
