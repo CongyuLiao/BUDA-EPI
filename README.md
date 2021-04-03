@@ -6,7 +6,7 @@ The datasets presented in this repository are from a BUDA-EPI acquisition with b
 
 Written by Congyu Liao. Please feel free to contact me (cyliao@stanford.edu) if there's any question I can help answer.
 
-*Data download:
+''Data download:
 
 The download link of BUDA-EPI datasets is: https://drive.google.com/file/d/1DAeTW2iLgQx8tjZT3QqZ7F3vvt6Vwt2Q/view?usp=sharing
 
