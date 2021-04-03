@@ -11,27 +11,16 @@ The download link of BUDA-EPI datasets is: https://drive.google.com/file/d/1DAeT
 
 The data size is ~ 20 GB, and the scan protocol is similar to the protocol of human connectom project (HCP):
 •	FOV: 220 mm *220mm, matrix size: 176*176
-
 •	In-plane resolution: 1.25 mm *1.25mm
-
 •	Slice thickness: 2mm
-
 •	Number of slices: 57
-
 •	Number of coils: 32
-
 •	TR/TE = 2800/77 ms
-
 •	Effective echo-spacing = 0.37 ms
-
 •	Multi-band factor: 3 with CAPI-shift FOV/2 per shot
-
 •	In-plane acceleration factor :2 per shot
-
 •	partial Fourier factor: 0.75
-
 •	BUDA acquisition with AP shot kyshift 1 and PA shot kyshift 0
-
 •	Two shells: b= 1000 with 32 diffusion directions and b=2500 with 64 diffusion directions
 
 Tested with:
