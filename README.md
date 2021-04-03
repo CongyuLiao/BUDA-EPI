@@ -12,7 +12,8 @@ The download link of BUDA-EPI datasets is: https://drive.google.com/file/d/1DAeT
 ```
 The data size is ~ 20 GB, and the scan protocol is similar to the protocol of human connectom project (HCP):
 ```
-FOV: 220 mm×220mm, matrix size: 176×176
+FOV: 220 mm×220mm
+matrix size: 176×176
 In-plane resolution: 1.25 mm ×1.25mm
 Slice thickness: 2mm; 
 Number of slices: 57
