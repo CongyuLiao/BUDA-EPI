@@ -1,6 +1,6 @@
 # BUDA-EPI
 
-Demonstration code for the MRM paper, ***Liao, C., et al. "Distortion-free, high-isotropic-resolution diffusion MRI with gSlider BUDA-EPI and multicoil dynamic B0 shimming." Magnetic Resonance in Medicine (2021).***
+Demonstration code for the MRM paper, *Liao, C., et al. "Distortion-free, high-isotropic-resolution diffusion MRI with gSlider BUDA-EPI and multicoil dynamic B0 shimming." Magnetic Resonance in Medicine (2021).*
 
 The datasets presented in this repository are from a BUDA-EPI acquisition with blip up and down shots. 
 
