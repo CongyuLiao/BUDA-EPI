@@ -1,0 +1,6 @@
+Jon's Code convention
+
+- Fourier Transform 
+1) normally should be: 1/sqrt(N) factor in both fft and ifft
+2) for Matlab implemenation have 1 on fft and 1/N in ifft
+3) for Jon's implementation e.g. in mrir_iDFT have 1/N in fft and 1 in ifft

@@ -1,0 +1,357 @@
+From Graham.Wiggins@nyumc.org Wed Dec 17 17:48:29 2008
+Date: Wed, 17 Dec 2008 17:48:24 -0500
+From: "Wiggins, Graham" <Graham.Wiggins@nyumc.org>
+To: jonp@nmr.mgh.harvard.edu
+Subject: FW: Diagonal Loading
+
+
+I just got this from Arne. Does it answer our questions and reveal
+what is different about your implementation?
+
+ 
+
+
+____________________________________________________________________________
+
+
+From: Reykowski, Arne [mailto:AReykowski@invivocorp.com]
+Sent: Wednesday, December 17, 2008 5:46 PM
+To: Wiggins, Graham
+Subject: RE: Diagonal Loading
+
+ 
+
+Hi Graham,
+
+ 
+
+Sorry for the delayed answer:
+
+ 
+
+The two variables corg1 and corg2 are the regularization and
+"smoothing" parameters.
+
+corg1 loads the main diagonal prior to matrix inversion.
+
+corg 2 smoothes the appearance of the final image by adding some
+threshold to the noise.
+
+ 
+
+The code below is the line-by-line treatment of the data.
+
+2d acceleration is treated like 1d acceleration. I simply reformatted
+the data so that all points that will be accelerated are on the same
+line.
+
+ 
+
+Regards, Arne
+
+ 
+
+Code:
+
+ 
+
+%--------------------------------------------------------------------------
+
+% Subfunction mang - line-by-line SENSE SNR evaluation
+
+%--------------------------------------------------------------------------
+
+ 
+
+ 
+
+function[SNR_LOSS_line,SNR_SENSE_line,SNR_FULL_line,SNR_ART_line]=mang(b,ref,nFOV,no
+isecor,corg1,corg2);
+
+%
+
+%   Line by line calculation of SENSE SNR and Full Array SNR
+
+%
+
+%   Is called by: gfcalc.m
+
+%
+
+% Usage[SNR_LOSS_line,SNR_SENSE_line,SNR_FULL_line,SNR_ART_line]=mang(b,ref,nFOV,no
+isecor,corg1,corg2)
+
+%
+
+% Input variables:
+
+% b             Single line of signal data from all channels
+
+% ref           Singel line of sensitivity data (reference) from all
+channels
+
+% nFOV          Total reduction in both directions:
+nFOV=red_rd*red_ph
+
+% noisecor      Noise correlation matrix
+
+% corg1:        Conditioning factor for m-SENSE
+
+% corg2:        Conditioning factor for final SNR Loss Map
+
+%
+
+% Output variable(s):
+
+% SNR_LOSS_line      Single line of Relative SNR loss = 1/g-factor
+
+% SNR_SENSE_line     Single line of SENSE SNR
+
+% SNR_FULL_line      Single line of Full Array SNR
+
+% SNR_ART_line       Single line of Artifact Power
+
+%
+
+% Last change:
+
+%   When            What            Who
+
+% 25.08.05      add comments    Arne Reykowski
+
+ 
+
+ 
+
+[nl,nCh]=size(b);           % nCh=number of channels
+
+% nl=Full matrix size in phase encoding
+
+% direction
+
+ 
+
+red_FOV = round(nl/nFOV);   %  Reduced matrix size in phase encoding
+direction
+
+ 
+
+b=reshape(b,red_FOV,nFOV,nCh);  % Separate images into nCh partitions
+
+ref=reshape(ref,red_FOV,nFOV,nCh);  % Separate images into nCh
+partitions
+
+ 
+
+p=permute(b,[3 2 1]);
+
+p_ref=permute(ref, [3 2 1]);
+
+ 
+
+reg=eye(nFOV)*corg1;   % Matrix for regularization
+
+full_snr_opt=zeros(red_FOV,nFOV);
+
+full_snr_ref=zeros(red_FOV,nFOV);
+
+g_fact_ref=zeros(red_FOV,nFOV);
+
+g_fact=zeros(red_FOV,nFOV);
+
+with_artefact=zeros(red_FOV,nFOV);
+
+sense_snr_ref=zeros(red_FOV,nFOV);
+
+ 
+
+ncor_inv=noisecor^-1;
+
+ 
+
+for i3=1:red_FOV
+
+    p1=p(:,:,i3);                              % Image data
+
+    p1_ref=p_ref(:,:,i3);                      % Reference data
+
+    %-----------------------------------------
+
+    A=p1_ref'*ncor_inv;
+
+    B=A*p1_ref;
+
+    C=diag(diag(B));
+
+    weight=A;                                % weighting factor with
+reference image
+
+    w_norm=diag(diag(sqrt(B)).^-1);             % Normalize for
+weight
+
+    weight=w_norm*weight;                       %
+
+    ss1=weight*p1;                            % Combined signal using
+reference
+
+    full_snr_ref(i3,:)=abs(diag(ss1).');            % Full SNR with
+reference weighting
+
+    %---------------------------------------
+
+    weight_total=((B+reg)^-1)*(A);
+
+    w_norm=diag(diag(sqrt(weight_total*noisecor*weight_total')).^-1);
+
+    weight_total=w_norm*weight_total;
+
+    ss2=weight_total*p1;
+
+    sense_snr_ref(i3,:)=abs(diag(ss2).');
+
+    with_artefact(i3,:)=abs(sum(ss2,2))';
+
+    %-----------------------------------------
+
+ 
+
+end
+
+ 
+
+SNR_FULL_line = abs(reshape(full_snr_ref,nl,1));
+
+SNR_SENSE_line=abs(reshape(sense_snr_ref,nl,1));
+
+reg2=ones(size(SNR_FULL_line)).*((corg2)^2);
+
+SNR_LOSS_line =
+sqrt((SNR_SENSE_line.^2+reg2)./(SNR_FULL_line.^2+reg2));
+
+SNR_ART_line=abs(reshape(with_artefact,nl,1)-SNR_SENSE_line);
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+____________________________________________________________________________
+
+
+From: Wiggins, Graham [mailto:Graham.Wiggins@nyumc.org]
+Sent: 2008 Dec 04 6:26 PM
+To: Reykowski, Arne
+Subject: Diagonal Loading
+
+ 
+
+I hope everything is going well for you in Florida. Winter is
+certainly setting in here. Things are going well at NYU. We managed
+to submit 7 RF abstracts to ISMRM even though we are still building
+up the RF lab. I have a little question for you relating to the
+Sloader program.
+
+ 
+
+I have finally submitted a paper on the 96 channel head coil. I used
+g-factor maps generated with Sloader, and one of the reviewers has
+asked for more detail on how they are generated. Would you be able to
+offer any clarification, given that you understand what is going on
+"under the hood"? Jonathan has achieved very similar results with his
+methods, but never reproduced the Sloader results exactly, and there
+are qualities to the Sloader g-factor maps that I prefer and believe
+correspond more closely to reality. My standard settings are to use
+25% of the phase encode lines and to leave the conditioning factors
+both set to the default of 1. Below is what I wrote in the paper and
+what the reviewer requested. Any help you can offer is greatly
+appreciated.
+
+ 
+
+"Because errors in the sensitivity map estimation can be amplified
+when computing the g-factor, the calculation was mildly regularized
+by diagonal loading."
+
+ 
+
+ Reviewer comment: "the calculation was mildly regularized by diagonal loading."    Can
+
+this be quantified so that others would feel comfortable that they are following a
+
+similar analysis procedure?  
+
+ 
+
+ 
+
+Graham C. Wiggins D.Phil
+
+Center for Biomedical Imaging
+
+660 First Ave.
+
+Ground Floor
+
+New York NY 10016
+
+212 263 3332
+
+graham.wiggins@nyumc.org
+
+ 
+
+------------------------------------------------------------
+This email message, including any attachments, is for the sole use of
+the intended recipient(s) and may contain information that is
+proprietary, confidential, and exempt from disclosure under
+applicable law. Any unauthorized review, use, disclosure, or
+distribution is prohibited. If you have received this email in error
+please notify the sender by return email and delete the original
+message. Please note, the recipient should check this email and any
+attachments for the presence of viruses. The organization accepts no
+liability for any damage caused by any virus transmitted by this
+email.
+=================================
+
+  
+
+ 
+
+
+----------------------------------------------------------------------------
+----
+This email and any files transmitted with it are intended only for the use o
+f 
+the individual or entity to which it is addressed and may contain informatio
+n 
+that is proprietary, confidential and exempt from disclosure under applicabl
+e 
+law. If the reader of this message is not the intended recipient, or the 
+employee or agent responsible for delivering the message to the intended 
+recipient, you are hereby notified that any dissemination, distribution or 
+copying of this communication is strictly prohibited. If you have received t
+his 
+communication in error, please delete it and notify us immediately.
+----------------------------------------------------------------------------
+----
+
+ 
+
+------------------------------------------------------------
+This email message, including any attachments, is for the sole use of
+the intended recipient(s) and may contain information that is
+proprietary, confidential, and exempt from disclosure under
+applicable law. Any unauthorized review, use, disclosure, or
+distribution is prohibited. If you have received this email in error
+please notify the sender by return email and delete the original
+message. Please note, the recipient should check this email and any
+attachments for the presence of viruses. The organization accepts no
+liability for any damage caused by any virus transmitted by this
+email.
+=================================
+
+
