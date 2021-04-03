@@ -1,12 +1,13 @@
 # BUDA-EPI
 
-Demonstration code for the MRM paper, Liao, C., et al. "Distortion-free, high-isotropic-resolution diffusion MRI with gSlider BUDA-EPI and multicoil dynamic B0 shimming." Magnetic Resonance in Medicine (2021).
+Demonstration code for the MRM paper, *Liao, C., et al. "Distortion-free, high-isotropic-resolution diffusion MRI with gSlider BUDA-EPI and multicoil dynamic B0 shimming." Magnetic Resonance in Medicine (2021).
 
-The datasets presented in this repository are from a Multiband 3 × inplane R2 EPI acquisition with blip up and down shots. The detailed scan protocols can be found in "instructions.pdf" in the folder
+The datasets presented in this repository are from a BUDA-EPI acquisition with blip up and down shots. 
 
 Written by Congyu Liao. Please feel free to contact me (cyliao@stanford.edu) if there's any question I can help answer.
 
-Data download:
+*Data download:
+
 The download link of BUDA-EPI datasets is: https://drive.google.com/file/d/1DAeTW2iLgQx8tjZT3QqZ7F3vvt6Vwt2Q/view?usp=sharing
 
 The data size is ~ 20 GB, and the scan protocol is similar to the protocol of human connectom project (HCP):
@@ -33,13 +34,13 @@ The data size is ~ 20 GB, and the scan protocol is similar to the protocol of hu
 
 •	Two shells: b= 1000 with 32 diffusion directions and b=2500 with 64 diffusion directions
 
-Tested with:
+*Tested with:
 
     MATLAB 2015b
     BART 0.5.00 (https://zenodo.org/record/3376744)
     FSL 6.0.4 (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation)
 
-Requirements:
+*Requirements:
     This repository requires BART and FSL to be installed. More details can be found in "instructions.pdf" in the folder
     
     
