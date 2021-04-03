@@ -33,10 +33,9 @@ The data size is ~ 20 GB, and the scan protocol is similar to the protocol of hu
     FSL 6.0.4 (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation)
 
 **Requirements:**
-    This repository requires BART and FSL to be installed. More details can be found in "instructions.pdf" in the folder
-     
+This repository requires BART and FSL to be installed. More details can be found in "instructions.pdf" in the folder
 If possible, please include the following citations if you find our reconstruction useful:	
-```
+``` 
     [1] Liao C, Bilgic B, Tian Q, Stockmann JP, Cao X, Fan Q, Iyer SS, Wang F, Ngamsombat C, Lo WC, Manhard MK. Distortion‐free, high‐isotropic‐resolution diffusion   MRI with gSlider BUDA‐EPI and multicoil dynamic B0 shimming. Magnetic Resonance in Medicine. 2021 
     [2] Liao, C., Cao, X., Cho, J., Zhang, Z., Setsompop, K. and Bilgic, B., Highly efficient MRI through multi-shot echo planar imaging. In Wavelets and Sparsity XVIII (Vol. 11138, p. 1113818). International Society for Optics and Photonics. 2019
 ```
