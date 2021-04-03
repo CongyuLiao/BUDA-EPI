@@ -12,19 +12,19 @@ The download link of BUDA-EPI datasets is: https://drive.google.com/file/d/1DAeT
 ```
 The data size is ~ 20 GB, and the scan protocol is similar to the protocol of human connectom project (HCP):
 ```
-FOV: 220 mm×220mm
-matrix size: 176×176
-In-plane resolution: 1.25 mm ×1.25mm
-Slice thickness: 2mm; 
-Number of slices: 57
-Number of coils: 32
-TR/TE = 2800/77 ms
-Effective echo-spacing = 0.37 ms
-Multi-band factor: 3 with CAPI-shift FOV/2 per shot
-In-plane acceleration factor :2 per shot
-partial Fourier factor: 0.75
-BUDA acquisition with AP shot kyshift 1 and PA shot kyshift 0
-Two shells: b= 1000 with 32 diffusion directions and b=2500 with 64 diffusion directions
+    FOV: 220 mm×220mm
+    matrix size: 176×176
+    In-plane resolution: 1.25 mm ×1.25mm
+    Slice thickness: 2mm; 
+    Number of slices: 57
+    Number of coils: 32
+    TR/TE = 2800/77 ms
+    Effective echo-spacing = 0.37 ms
+    Multi-band factor: 3 with CAPI-shift FOV/2 per shot
+    In-plane acceleration factor :2 per shot
+    partial Fourier factor: 0.75
+    BUDA acquisition with AP shot kyshift 1 and PA shot kyshift 0
+    Two shells: b= 1000 with 32 diffusion directions and b=2500 with 64 diffusion directions
 ```
 **Tested with:**
 
@@ -33,10 +33,13 @@ Two shells: b= 1000 with 32 diffusion directions and b=2500 with 64 diffusion di
     FSL 6.0.4 (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation)
 
 **Requirements:**
-
     This repository requires BART and FSL to be installed. More details can be found in "instructions.pdf" in the folder
-    
-    
+     
+If possible, please include the following citations if you find our reconstruction useful:	
+```
+    [1] Liao C, Bilgic B, Tian Q, Stockmann JP, Cao X, Fan Q, Iyer SS, Wang F, Ngamsombat C, Lo WC, Manhard MK. Distortion‐free, high‐isotropic‐resolution diffusion   MRI with gSlider BUDA‐EPI and multicoil dynamic B0 shimming. Magnetic Resonance in Medicine. 2021 
+    [2] Liao, C., Cao, X., Cho, J., Zhang, Z., Setsompop, K. and Bilgic, B., Highly efficient MRI through multi-shot echo planar imaging. In Wavelets and Sparsity XVIII (Vol. 11138, p. 1113818). International Society for Optics and Photonics. 2019
+```
 
 
 
