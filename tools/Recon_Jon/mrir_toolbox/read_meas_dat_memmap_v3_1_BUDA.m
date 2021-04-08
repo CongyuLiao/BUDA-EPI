@@ -230,7 +230,7 @@ nCoil = sData(3);
 nSlice = sData(10);
 nPhaseCor = sPhaseCor(2);
 
-nPE_Raw = meas.evp.RawLin;
+nPE_Raw = meas.evp.RawLin*2-1;
 nRep = meas.evp.RawRep;
 meas.evp.NRepMeas = nRepToRead;
 
