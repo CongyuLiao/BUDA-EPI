@@ -9,6 +9,7 @@ clear;clc;close all;
 
 
 addpath (genpath('./tools/'))
+addpath (genpath('./Nifti_Analyze'))
 addpath svdandpca
 addpath mtimesx_20110223
 addpath(genpath('./tools/read_meas_dat__20140924112147/'))
